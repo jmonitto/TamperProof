@@ -19,3 +19,7 @@ reset.addEventListener('click',()=>{if(busy)return;history=[];conversation.inner
 function updateDraft(){const f=quoteForm.elements;const lines=['Hello Tamperproof,','','I would like to request a quote.','',`Product: ${f.product.value||'Not specified'}`,`Size or thread: ${f.size.value||'Not specified'}`,`Quantity: ${f.quantity.value||'Not specified'}`,`Other details: ${f.details.value||'Not specified'}`];if(f.includeChat.checked){const messages=history.filter(m=>m.role==='user').map(m=>m.content).join('\n- ').slice(0,3500);if(messages)lines.push('','Recent questions I asked:','- '+messages)}lines.push('','Please let me know the next steps.','Thank you.');draft.href='mailto:info@tamperproof.com?subject='+encodeURIComponent('Request for a product quote')+'&body='+encodeURIComponent(lines.join('\r\n'))}
 document.querySelector('#quote-open').addEventListener('click',()=>{updateDraft();quote.showModal()});document.querySelector('#quote-close').addEventListener('click',()=>quote.close());quoteForm.addEventListener('input',updateDraft);quoteForm.addEventListener('change',updateDraft);quoteForm.addEventListener('submit',e=>e.preventDefault());
 
+const humanDialog=document.querySelector('#human-dialog');
+document.querySelector('#human-open').addEventListener('click',()=>humanDialog.showModal());
+document.querySelector('#human-close').addEventListener('click',()=>humanDialog.close());
+
